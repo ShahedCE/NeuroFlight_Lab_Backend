@@ -85,5 +85,8 @@ export class JobApplicationController{
       data: applications,
     };
   }
+
+
+  
 }
 

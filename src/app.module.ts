@@ -32,8 +32,8 @@ import { ContactsModule } from './modules/contacts/contacts.module';
         database:configService.get("DB_NAME")  ,
         
         autoLoadEntities:true,
-        synchronize:false, //in development phase: true, in production false
-        logging:true,
+        synchronize:false, //in development phase: true, in production: false
+        logging:true,//in development phase: true, in production false
 
         extra: {
         options: '-c timezone=Asia/Dhaka',
