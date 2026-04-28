@@ -1,6 +1,6 @@
 export enum JobLevel {
-  INTERNSHIP = 'Internship',
-  JUNIOR = 'Junior',
-  MID = 'Mid',
-  SENIOR = 'Senior',
+  INTERNSHIP = 'internship',
+  JUNIOR = 'junior',
+  MID = 'mid',
+  SENIOR = 'senior',
 }

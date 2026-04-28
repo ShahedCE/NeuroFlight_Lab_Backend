@@ -1,5 +1,5 @@
 export enum JobStatus {
-  PUBLISHED = 'PUBLISHED',
-  CLOSED = 'CLOSED',
-  DRAFT = 'DRAFT',
+  DRAFT = 'draft',
+  PUBLISHED = 'published',
+  CLOSED = 'closed',
 }

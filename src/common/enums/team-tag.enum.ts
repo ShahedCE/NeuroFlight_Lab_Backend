@@ -1,4 +1,4 @@
 export enum TeamTag {
-  ADMINISTRATION = 'Administration',
-  RESEARCH_AND_INNOVATION = 'Research and Innovation',
+  ADMINISTRATION = 'administration',
+  RESEARCH_AND_INNOVATION = 'research_and_innovation',
 }

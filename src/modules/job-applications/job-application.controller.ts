@@ -1,8 +1,9 @@
-import { BadRequestException, Body, Controller, Get, Param, Post, UploadedFile, UseInterceptors } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Get, Param, Post, UploadedFile, UseGuards, UseInterceptors } from "@nestjs/common";
 import { JobApplicationService } from "./job-application.service";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { cvFileFilter, multerStorage } from "../uploads/multer.config";
 import { CreateJobApplicationDto } from "./dto/create-job-application.dto";
+import { JwtAuthGuard } from "../auth/jwt-auth.guard";
 
 @Controller()
 export class JobApplicationController{
@@ -52,7 +53,7 @@ export class JobApplicationController{
     // =========================
   // Admin Routes
   // =========================
-
+  @UseGuards(JwtAuthGuard)
   @Get('admin/job-applications')
   async findAll() {
     const applications = await this.jobApplicationService.findAll();
@@ -64,6 +65,7 @@ export class JobApplicationController{
     };
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('admin/job-applications/:id')
   async findOneById(@Param('id') id: string) {
     const application = await this.jobApplicationService.findOneById(id);
@@ -75,6 +77,7 @@ export class JobApplicationController{
     };
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('admin/job-posts/:jobId/applications')
   async findByJobId(@Param('jobId') jobId: string) {
     const applications = await this.jobApplicationService.findByJobId(jobId);

@@ -53,6 +53,7 @@ async createProject(@Body() projectData:CreateProjectDto){
 }
 
 //Update Project
+@UseGuards(JwtAuthGuard)
 @Patch('admin/projects/:id')
 async updateProject(@Param('id') id: string, 
 @Body() updateData:UpdateProjectDto) {
@@ -66,6 +67,7 @@ async updateProject(@Param('id') id: string,
     }
 
 //Delete
+@UseGuards(JwtAuthGuard)
 @Delete('admin/projects/:id')
 async deleteProject(@Param('id')id:string) {
     const result= await this.projectService.deleteProject(id);

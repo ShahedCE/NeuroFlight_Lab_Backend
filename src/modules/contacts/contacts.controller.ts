@@ -1,12 +1,13 @@
-import { Body, Controller, Delete, Get, Param, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, UseGuards } from "@nestjs/common";
 import { ContactsService } from "./contacts.service";
 import { CreateContactMessageDto } from "./dto/create-contact-message.dto";
+import { JwtAuthGuard } from "../auth/jwt-auth.guard";
 
 @Controller()
 export class ContactsController{
     constructor(private readonly contactsService: ContactsService){}
 
-    // =========================
+  // =========================
   // Public Routes
   // =========================
     @Post('contact')
@@ -23,7 +24,7 @@ export class ContactsController{
   // =========================
   // Admin Routes
   // =========================
-
+  @UseGuards(JwtAuthGuard)
   @Get('admin/contact-messages')
   async findAll() {
     const contactMessages = await this.contactsService.findAll();
@@ -34,7 +35,7 @@ export class ContactsController{
       data: contactMessages,
     };
   }
-
+  @UseGuards(JwtAuthGuard)
   @Get('admin/contact-messages/:id')
   async findOneById(@Param('id') id: string) {
     const contactMessage = await this.contactsService.findOneById(id);
@@ -45,7 +46,7 @@ export class ContactsController{
       data: contactMessage,
     };
   }
-
+  @UseGuards(JwtAuthGuard)
   @Delete('admin/contact-messages/:id')
   async remove(@Param('id') id: string) {
     const result = await this.contactsService.remove(id);

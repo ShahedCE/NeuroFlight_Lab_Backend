@@ -1,10 +1,11 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseGuards } from "@nestjs/common";
 import { JobLevel } from "src/common/enums/job-level.enum";
 import { JobTeam } from "src/common/enums/job-team.enum";
 import { JobType } from "src/common/enums/job-type.enum";
 import { JobPostsService } from "./job-posts.service";
 import { UpdateJobPostDto } from "./dto/update-job-post.dto";
 import { CreateJobPostDto } from "./dto/create-job-post.dto";
+import { JwtAuthGuard } from "../auth/jwt-auth.guard";
 
 @Controller()
 export class JobPostsController{
@@ -43,7 +44,7 @@ export class JobPostsController{
 // =========================
   // Admin Routes
   // =========================
-
+  @UseGuards(JwtAuthGuard)
   @Post('admin/job-posts')
   async create(@Body() createJobPostDto: CreateJobPostDto) {
     const jobPost = await this.jobPostsService.create(createJobPostDto);
@@ -55,6 +56,7 @@ export class JobPostsController{
     };
   }
 //Get All
+@UseGuards(JwtAuthGuard)
   @Get('admin/job-posts')
   async findAllAdmin() {
     const jobPosts = await this.jobPostsService.findAllJobs();
@@ -66,6 +68,7 @@ export class JobPostsController{
     };
   }
  //Get by id:
+ @UseGuards(JwtAuthGuard)
   @Get('admin/job-posts/:id')
   async findOneAdmin(@Param('id') id: string) {
     const jobPost = await this.jobPostsService.findOneById(id);
@@ -76,7 +79,7 @@ export class JobPostsController{
       data: jobPost,
     };
   }
-
+  @UseGuards(JwtAuthGuard)
   @Patch('admin/job-posts/:id')
   async update(
     @Param('id') id: string,
@@ -90,7 +93,8 @@ export class JobPostsController{
       data: jobPost,
     };
   }
-
+  
+  @UseGuards(JwtAuthGuard)
   @Delete('admin/job-posts/:id')
   async remove(@Param('id') id: string) {
     const result = await this.jobPostsService.remove(id);

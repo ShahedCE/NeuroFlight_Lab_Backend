@@ -1,5 +1,5 @@
 export enum JobTeam {
-  RESEARCH_TEAM = 'Research Team',
-  DEVELOPMENT_TEAM = 'Development Team',
-  ADMINISTRATION = 'Administration',
+  RESEARCH_TEAM = 'research',
+  DEVELOPMENT_TEAM = 'development',
+  ADMINISTRATION = 'administration',
 }

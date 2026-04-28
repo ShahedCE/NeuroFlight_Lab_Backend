@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UploadedFile, UseInterceptors } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UploadedFile, UseGuards, UseInterceptors } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express/multer";
 import { imageFileFilter, multerStorage } from "../uploads/multer.config";
 import { CreateTeamMemberDto } from "./dto/create-team-member.dto";
@@ -6,6 +6,7 @@ import { TeamService } from "./team.service";
 import { TeamTag } from "src/common/enums/team-tag.enum";
 import { TeamGroup } from "src/common/enums/team-group.enum";
 import { UpdateTeamMemberDto } from "./dto/update-team.dto";
+import { JwtAuthGuard } from "../auth/jwt-auth.guard";
 
 @Controller()
 export class TeamController{
@@ -44,6 +45,7 @@ async findBySlug(@Param('slug') slug:string){
 
     //Admin Route
     //Create Team Member
+    @UseGuards(JwtAuthGuard)
     @Post('admin/team')
 @UseInterceptors(
   FileInterceptor('image', {
@@ -71,6 +73,7 @@ async create(
   };
 }
 
+@UseGuards(JwtAuthGuard)
 @Patch('admin/team/:id')
   @UseInterceptors(
     FileInterceptor('image', { //image in the multer form , image: xxx.jpg
@@ -102,6 +105,7 @@ async create(
     };
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete('admin/team/:id')
   async remove(@Param('id') id:string ){
     const result= await this.teamService.remove(id);

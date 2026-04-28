@@ -1,4 +1,4 @@
-export enum ProjectStatus{
-    ONGOING = 'ONGOING',
-    COMPLETED = 'COMPLETED',
-}
+export enum ProjectStatus {
+    ONGOING = 'ongoing',
+    COMPLETED = 'completed',
+  }

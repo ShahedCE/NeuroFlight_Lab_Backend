@@ -1,7 +1,8 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from "@nestjs/common";
 import { PublicationsService } from "./publications.service";
 import { CreatePublicationDto } from "./dto/create-puiblication.dto";
 import { UpdatePublicationDto } from "./dto/update-publication.dto";
+import { JwtAuthGuard } from "../auth/jwt-auth.guard";
 
 @Controller()
 
@@ -36,7 +37,7 @@ export class PublicationsController {
   // =========================
   // Admin Routes
   // =========================
-
+   @UseGuards(JwtAuthGuard)
    @Post('admin/publications')
    async createPublication(@Body() publicationData: CreatePublicationDto){
 
@@ -49,6 +50,7 @@ export class PublicationsController {
    }
 
    //Update
+   @UseGuards(JwtAuthGuard)
    @Patch('admin/publications/:id')
    async updatePublication(@Param('id') id:string, @Body() updateData:UpdatePublicationDto){
      const updated= await this.publicationService.updatePublication(id,updateData);
@@ -59,7 +61,7 @@ export class PublicationsController {
     data:updateData,
     }
    }
-
+   @UseGuards(JwtAuthGuard)
    @Delete('admin/publications/:id')
    async deletePublication(@Param('slug') slug:string){
 
