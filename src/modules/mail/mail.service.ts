@@ -11,6 +11,8 @@ export class MailService {
     private readonly configService: ConfigService,
   ) {}
 
+  // This MailService handles sending emails related to job applications, 
+  // including notifying the admin when a new application is received.
   async sendJobApplicationToAdmin(payload: JobApplicationCreatedEvent) {
     const adminEmail = this.configService.get<string>('ADMIN_EMAIL');
     const appBaseUrl = this.configService.get<string>('APP_BASE_URL');

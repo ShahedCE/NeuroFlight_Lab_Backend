@@ -1,28 +1,30 @@
 import { BadRequestException } from "@nestjs/common";
 import { diskStorage } from "multer";
-import { extname } from "path";
+import { extname, join } from "path"; 
+import * as fs from 'fs';
 
 /**
  * Multer storage config
  * Determines where files will be stored
  */
+
+
 export const multerStorage = (folder: string) =>
   diskStorage({
-    destination: `./src/modules/uploads/${folder}`, // uploads/team OR uploads/cv
+    destination: (req, file, cb) => {
+      const uploadPath = join(process.cwd(), 'uploads', folder);
+
+      // ensure folder exists
+      fs.mkdirSync(uploadPath, { recursive: true });
+
+      cb(null, uploadPath);
+    },
 
     filename: (req, file, callback) => {
-      /**
-       * Unique filename generate
-       * Example:
-       * team-171234123.jpg
-       */
-
       const uniqueSuffix = Date.now();
-
-      const ext = extname(file.originalname); // .jpg / .pdf
+      const ext = extname(file.originalname);
 
       const filename = `${folder}-${uniqueSuffix}${ext}`;
-
       callback(null, filename);
     },
   });
