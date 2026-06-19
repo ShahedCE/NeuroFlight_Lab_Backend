@@ -47,7 +47,4 @@ Cloud Deployment Services
 Objective
 
 The primary goal of this platform is to provide a scalable and maintainable digital ecosystem that supports NeuroFlight Lab's mission of advancing interdisciplinary research and innovation in AI, robotics, biotechnology, and software systems.
-# or
-pnpm dev
-# or
-bun dev
+
