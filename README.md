@@ -1,7 +1,4 @@
-npm run dev
-# or
-yarn dev
-NeuroFlight Lab Official Website & Research Platform
+# NeuroFlight Lab Official Website & Research Platform
 
 NeuroFlight Lab is a multidisciplinary research organization focused on Artificial Intelligence, Robotics, Biotechnology, Computer Vision, and Software Systems. The platform serves as the official digital presence of the lab, providing information about research activities, ongoing projects, publications, team members, events, and organizational updates.
 
